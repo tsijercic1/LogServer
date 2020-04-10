@@ -1,10 +1,17 @@
 package ba.unsa.etf.si.logserver.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "logs")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Log {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

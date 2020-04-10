@@ -9,4 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SimpleActionResponse {
     private String name;
+    private String object;
+    private String description;
 }
