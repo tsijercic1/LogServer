@@ -21,6 +21,8 @@ public class Log {
 
     private LocalDateTime timestamp;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "log")
     private SimpleAction action;
 }
