@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
@@ -20,11 +21,12 @@ public class HeaderFilter implements Filter {
             throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         if (req.getHeader("pass") != null && req.getHeader("pass").equals(pass)) {
-            System.out.println("we have a pass");
+            System.out.println("Authorization successful");
+            chain.doFilter(request, response);
         } else {
-            System.out.println("We don't");
+            HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+            httpServletResponse.sendError(403,"You should not be here");
         }
-        chain.doFilter(request, response);
     }
 
 }

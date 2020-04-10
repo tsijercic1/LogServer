@@ -1,7 +1,6 @@
 package ba.unsa.etf.si.logserver.serializers;
 
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
@@ -21,9 +20,8 @@ public class CustomLocalDateTimeDeserializer extends StdDeserializer<LocalDateTi
     }
 
     @Override
-    public LocalDateTime deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+    public LocalDateTime deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         JsonNode node = jsonParser.getCodec().readTree(jsonParser);
-        System.out.println(node);
         long timestamp = node.longValue();
         return LocalDateTime.ofEpochSecond(timestamp, 0, OffsetDateTime.now().getOffset());
     }

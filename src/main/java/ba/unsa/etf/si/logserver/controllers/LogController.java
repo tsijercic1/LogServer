@@ -48,7 +48,6 @@ public class LogController {
 
     @PostMapping(value = "/logs", produces = "application/json")
     public ResponseEntity<String> postLog(@RequestBody LogResponse logRequest) {
-        System.out.println("Successfully deserialized");
         logService.saveLog(logRequest);
         return ResponseEntity.ok("{\"message\":\"Successfully added log!\"}");
     }
