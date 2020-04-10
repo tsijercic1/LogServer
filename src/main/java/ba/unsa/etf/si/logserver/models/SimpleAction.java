@@ -18,4 +18,8 @@ public class SimpleAction {
     private String name;
     private String object;
     private String description;
+
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "action_id", nullable = false)
+    private Log log;
 }

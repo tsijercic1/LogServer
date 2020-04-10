@@ -1,6 +1,8 @@
 package ba.unsa.etf.si.logserver.services;
 
 import ba.unsa.etf.si.logserver.filters.LogFilter;
+import ba.unsa.etf.si.logserver.models.Log;
+import ba.unsa.etf.si.logserver.models.SimpleAction;
 import ba.unsa.etf.si.logserver.repositories.LogRepository;
 import ba.unsa.etf.si.logserver.responses.LogCollectionResponse;
 import ba.unsa.etf.si.logserver.responses.LogResponse;
@@ -36,5 +38,18 @@ public class LogService {
                         )
                         .collect(Collectors.toList())
         );
+    }
+
+    public void saveLog(LogResponse logRequest) {
+        Log log = new Log();
+        log.setUsername(logRequest.getUsername());
+        log.setTimestamp(logRequest.getTimestamp());
+        SimpleAction action = new SimpleAction();
+        action.setName(logRequest.getAction().getName());
+        action.setObject(logRequest.getAction().getObject());
+        action.setDescription(logRequest.getAction().getDescription());
+        log.setAction(action);
+        action.setLog(log);
+        logRepository.save(log);
     }
 }

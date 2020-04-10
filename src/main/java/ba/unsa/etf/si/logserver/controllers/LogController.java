@@ -2,11 +2,10 @@ package ba.unsa.etf.si.logserver.controllers;
 
 import ba.unsa.etf.si.logserver.filters.LogFilter;
 import ba.unsa.etf.si.logserver.responses.LogCollectionResponse;
+import ba.unsa.etf.si.logserver.responses.LogResponse;
 import ba.unsa.etf.si.logserver.services.LogService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
@@ -36,8 +35,8 @@ public class LogController {
             ) {
         LogFilter logFilter = new LogFilter(
                 username,
-                LocalDateTime.ofEpochSecond(from, 0, OffsetDateTime.now().getOffset()),
-                LocalDateTime.ofEpochSecond(to, 0, OffsetDateTime.now().getOffset()),
+                from!=null?LocalDateTime.ofEpochSecond(from, 0, OffsetDateTime.now().getOffset()):null,
+                to!=null?LocalDateTime.ofEpochSecond(to, 0, OffsetDateTime.now().getOffset()):null,
                 action,
                 object
         );
@@ -45,6 +44,12 @@ public class LogController {
                 .ok(
                         logService.getLogs(logFilter)
                 );
+    }
+
+    @PostMapping(value = "/logs", produces = "application/json")
+    public ResponseEntity<String> postLog(@RequestBody LogResponse logRequest) {
+        logService.saveLog(logRequest);
+        return ResponseEntity.ok("{\"message\":\"Successfully added log!\"}");
     }
 
 
