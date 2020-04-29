@@ -23,6 +23,8 @@ public class HeaderFilter implements Filter {
         if (req.getHeader("pass") != null && req.getHeader("pass").equals(pass)) {
             System.out.println("Authorization successful");
             chain.doFilter(request, response);
+        } else if (!req.getRequestURI().equals("/logs") && !req.getRequestURI().contains("/notify")) {
+            chain.doFilter(request, response);
         } else {
             HttpServletResponse httpServletResponse = (HttpServletResponse) response;
             httpServletResponse.sendError(403,"You should not be here");
