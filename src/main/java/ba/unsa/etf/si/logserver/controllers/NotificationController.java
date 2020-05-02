@@ -18,6 +18,8 @@ public class NotificationController {
 
     @PostMapping("/notify/{app}")
     public NotificationResponse notifyListeners(@PathVariable String app, @RequestBody NotificationResponse response) {
+        System.out.println("Message sent to app = " + app);
+        System.out.println("Action: " + response.getPayload().getAction());
         notificationBroadcaster.convertAndSend("/topic/" + app, response);
         return response;
     }
