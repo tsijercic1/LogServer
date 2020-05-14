@@ -52,4 +52,5 @@ public class LogService {
         action.setLog(log);
         logRepository.save(log);
     }
+
 }
