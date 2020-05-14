@@ -34,16 +34,16 @@ public class LogController {
             @RequestParam(name = "object",required = false) String object
             ) {
         LogFilter logFilter = new LogFilter(
-                username,
-                from!=null?LocalDateTime.ofEpochSecond(from, 0, OffsetDateTime.now().getOffset()):null,
-                to!=null?LocalDateTime.ofEpochSecond(to, 0, OffsetDateTime.now().getOffset()):null,
-                action,
-                object
+            username,
+            from!=null?LocalDateTime.ofEpochSecond(from, 0, OffsetDateTime.now().getOffset()):null,
+            to!=null?LocalDateTime.ofEpochSecond(to, 0, OffsetDateTime.now().getOffset()):null,
+            action,
+            object
         );
         return ResponseEntity
-                .ok(
-                        logService.getLogs(logFilter)
-                );
+            .ok(
+                logService.getLogs(logFilter)
+            );
     }
 
     @PostMapping(value = "/logs", produces = "application/json")
