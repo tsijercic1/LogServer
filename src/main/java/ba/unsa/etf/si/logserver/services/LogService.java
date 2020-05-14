@@ -21,22 +21,22 @@ public class LogService {
 
     public LogCollectionResponse getLogs(LogFilter logFilter) {
         return new LogCollectionResponse(
-                logRepository
-                        .findAllByFilter(logFilter)
-                        .stream()
-                        .map(
-                                log ->
-                                        new LogResponse(
-                                                log.getUsername(),
-                                                log.getTimestamp(),
-                                                new SimpleActionResponse(
-                                                        log.getAction().getName(),
-                                                        log.getAction().getObject(),
-                                                        log.getAction().getDescription()
-                                                )
-                                        )
+            logRepository
+                .findAllByFilter(logFilter)
+                .stream()
+                .map(
+                    log ->
+                        new LogResponse(
+                            log.getUsername(),
+                            log.getTimestamp(),
+                            new SimpleActionResponse(
+                                log.getAction().getName(),
+                                log.getAction().getObject(),
+                                log.getAction().getDescription()
+                            )
                         )
-                        .collect(Collectors.toList())
+                )
+                .collect(Collectors.toList())
         );
     }
 
